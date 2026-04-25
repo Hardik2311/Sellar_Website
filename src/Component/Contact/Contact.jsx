@@ -120,7 +120,7 @@ const Contact = () => {
     return (
         <section
             id='contact'
-            className="relative py-12 px-5 bg-gradient-to-br from-slate-50 to-slate-100 overflow-hidden font-sans"
+            className="relative py-12 px-5 bg-[radial-gradient(circle_at_0%_0%,#f0f9ff_0%,#e0f2fe_40%,#bae6fd_100%)] overflow-hidden font-sans"
         >
             {/* Background Decoration */}
             <div className="absolute -bottom-[10%] -left-[5%] w-[300px] h-[300px] bg-[#007EA7]/5 rounded-full blur-[80px] pointer-events-none"></div>

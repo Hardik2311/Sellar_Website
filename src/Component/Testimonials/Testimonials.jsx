@@ -37,8 +37,8 @@ const Card = ({ t }) => (
       <img src={t.img} alt={t.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
     </div>
     <div style={{ padding: "20px 22px 24px", borderTop: "1px solid #f2efe9" }}>
-      <p style={{ fontSize: "13.5px", color: "#666", lineHeight: 1.65,  fontStyle: "italic", margin: "0 0 14px" }}>{t.review}</p>
-      <p style={{ fontSize: "13px", fontWeight: 600, color: "#222",  fontStyle: "italic", textAlign: "right", margin: 0 }}>— {t.name}</p>
+      <p style={{ fontSize: "13.5px", color: "#666", lineHeight: 1.65, fontStyle: "italic", margin: "0 0 14px" }}>{t.review}</p>
+      <p style={{ fontSize: "13px", fontWeight: 600, color: "#222", fontStyle: "italic", textAlign: "right", margin: 0 }}>— {t.name}</p>
     </div>
   </div>
 );
@@ -68,7 +68,10 @@ export default function Testimonials() {
   const tabletNext = () => setTabletCurrent(c => (c === tabletTotal - 1 ? 0 : c + 1));
 
   return (
-    <section style={{ padding: "40px 24px", background: "#faf9f6" }} id="testimonial">
+    <section
+      className="py-10 px-6 bg-[radial-gradient(circle_at_100%_100%,#fffbf7_0%,#fff3e8_40%,#ffe4cc_100%)]"
+      id="testimonial"
+    >
       <style>{`
         .t-desktop { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
         .t-tablet  { display: none; }
@@ -86,8 +89,8 @@ export default function Testimonials() {
       <div style={{ maxWidth: 1400, margin: "0 auto" }}>
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: 30 }}>
-          <p style={{ color: "#aaa", fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 10 }}>Testimonials</p>
-          <h2 style={{ fontSize: "clamp(26px, 4vw, 38px)", fontWeight: 400, fontStyle: "italic", color: "#1a1a1a", margin: 0 }}>Transformative Client Experiences</h2>
+          <p style={{ color: "#6b7280", fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 10 }}>Testimonials</p>
+          <h2 style={{ fontSize: "clamp(26px, 4vw, 38px)", fontWeight: 400, color: "#1a1a1a", margin: 0 }}>Transformative Client Experiences</h2>
         </div>
 
         {/* Desktop: all 3 */}

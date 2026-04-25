@@ -110,7 +110,7 @@ const Footer = () => {
 
                 {/* Footer Bottom */}
                 <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 gap-6 text-sm text-slate-500 font-medium">
-                    <p>© 2025 Sellar Inc. Built for Indian Retailers.</p>
+                    <p>© 2025 Sellar Inc. Built for Indian Retailers and WholeSalers.</p>
                 </div>
             </div>
         </footer>

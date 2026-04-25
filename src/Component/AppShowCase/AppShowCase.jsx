@@ -12,35 +12,35 @@ const AppShowCase = () => {
   const [activeFeature, setActiveFeature] = useState(0);
 
   const features = [
-    { icon: "📊", title: "Dashboard", img: "/dashboard.png" },
-    { icon: "📦", title: "Transactions", img: "/Transaction.png" },
-    { icon: "📄", title: "Sales Voucher", img: "/Final.png" },
-    { icon: "👥", title: "Reports", img: "/Reports.png" }
+    { icon: "📊", title: "Dashboard", img: "/AppShowCaseImages/dashboard.png" },
+    { icon: "📦", title: "Transactions", img: "/AppShowCaseImages/Transaction.png" },
+    { icon: "📄", title: "Sales Voucher", img: "/AppShowCaseImages/Final.png" },
+    { icon: "👥", title: "Reports", img: "/AppShowCaseImages/Reports.png" }
   ];
 
   return (
-    <section className="relative py-10 px-5 bg-[radial-gradient(circle_at_0%_0%,#0f172a_0%,#020617_100%)]] overflow-hidden font-sans" id="posi">
+    <section className="relative py-8 pb-10 px-5 bg-[radial-gradient(circle_at_0%_0%,#f0f9ff_0%,#e0f2fe_40%,#bae6fd_100%)] overflow-hidden font-sans" id="posi">
       {/* <style>{animationStyle}</style> */}
-      
+
       <div className="max-w-7xl mx-auto">
-        
+
         {/* --- HEADER --- */}
         <div className="text-center mb-12">
           {/* "POSI" */}
           <div className="flex flex-col items-center mb-2">
             <h1 className="text-6xl md:text-8 font-[1000] text-slate-900 tracking-tighter mb-0 leading-none">
-                POS<span className="text-[#007EA7]">I</span>
+              POS<span className="text-[#007EA7]">I</span>
             </h1>
-            <div className="h-1.5 w-12 bg-[#007EA7] rounded-full mt-1"></div>
+            <div className="h-1.5 w-12 bg-[#007EA7] rounded-sm mt-1"></div>
           </div>
 
-          <span className="inline-block px-4 py-1.5 bg-slate-200 text-[#007EA7] rounded-full text-[11px] font-extrabold tracking-[2px] mb-4 mt-4">
+          <span className="inline-block px-4 py-1.5 bg-slate-200 text-[#007EA7] rounded-sm text-[11px] font-extrabold tracking-[2px] mb-4 mt-4">
             ALL-IN-ONE POS
           </span>
-          <h2 className="text-2xl md:text-5xl font-black text-slate-900 leading-[1.1]">
-            Business Management <br /> 
-            <span className="text-[#007EA7]">Simplified</span>
+          <h2 className="text-4xl md:text-7xl font-black text-slate-900 leading-[1.1]">
+            End to End Billing
           </h2>
+            <p className="text-[#007EA7] text-2xl md:text-5xl font-bold">Simplified</p>
           <p className="mt-4 text-slate-500 text-lg max-w-2xl mx-auto">
             Manage Billing, Inventory, Customers, Payments, and Reports seamlessly from a single Dashboard.
           </p>
@@ -48,20 +48,16 @@ const AppShowCase = () => {
 
         {/* --- DISPLAY CONTAINER --- */}
         <div className="flex flex-row justify-between items-center gap-3 md:grid md:grid-cols-2 md:gap-16">
-          
+
           {/* --- LEFT: IPHONE FRAME --- */}
           <div className="flex justify-center md:justify-end w-[62%] md:w-full">
-            <div className="relative bg-black border-[8px] md:border-[12px] border-slate-800 rounded-[35px] md:rounded-[45px] shadow-2xl overflow-hidden 
-                            w-[215px] h-[440px] 
-                            xs:w-[180px] xs:h-[370px] 
-                            md:w-[280px] md:h-[570px]">
-              
+            <div className="relative bg-black border-[8px] md:border-[12px] border-slate-800 rounded-[35px] md:rounded-[45px] shadow-2xl overflow-hidden  w-[215px] h-[440px] xs:w-[180px] xs:h-[370px]  md:w-[280px] md:h-[570px]">
               <div className="w-full h-full bg-white rounded-[26px] md:rounded-[33px] overflow-hidden relative">
                 {/* Image Wrapper with Animation */}
                 <div key={activeFeature} className="w-full h-full animate-[slideIn_0.4s_ease-out]">
-                  <img 
-                    src={features[activeFeature].img} 
-                    alt={features[activeFeature].title} 
+                  <img
+                    src={features[activeFeature].img}
+                    alt={features[activeFeature].title}
                     className="w-full h-full object-fill md:object-cover block"
                   />
                 </div>
@@ -72,28 +68,28 @@ const AppShowCase = () => {
           {/* --- RIGHT: INTERACTIVE BUTTONS --- */}
           <div className="flex flex-col gap-5 md:gap-4 w-[35%] md:w-full items-center md:items-stretch">
             {features.map((f, i) => (
-              <button 
-                key={i} 
+              <button
+                key={i}
                 onClick={() => setActiveFeature(i)}
                 className={`
                   group transition-all duration-300 cursor-pointer
                   flex flex-col items-center gap-1.5 bg-transparent border-0 p-0 w-full
-                  md:flex-row md:gap-4 md:p-5 md:bg-white md:border md:border-slate-200 md:rounded-2xl md:text-left
-                  ${activeFeature === i 
-                    ? 'md:border-[#007EA7] md:shadow-[0_10px_25px_rgba(0,126,167,0.1)] md:translate-x-2' 
+                  md:flex-row md:gap-4 md:p-5 md:bg-white md:border md:border-slate-400 rounded-2xl md:text-left
+                  ${activeFeature === i
+                    ? 'md:border-[#007EA7] md:shadow-[0_10px_25px_rgba(0,126,167,0.1)] md:translate-x-2'
                     : ''}
                 `}
               >
-                
+
                 {/* ICON BOX */}
                 <div className={`
                   flex items-center justify-center shrink-0 transition-colors duration-300
                   w-[52px] h-[52px] xs:w-[45px] xs:h-[45px] text-xl rounded-sm border-2
-                  ${activeFeature === i 
-                    ? 'bg-sky-50 border-[#007EA7] text-[#007EA7]' 
+                  ${activeFeature === i
+                    ? 'bg-sky-50 border-[#007EA7] text-[#007EA7]'
                     : 'bg-white border-slate-200 text-slate-900'}
-                  md:w-[55px] md:h-[55px] md:text-2xl md:rounded-2xl md:border-0
-                  md:bg-slate-50 md:text-slate-900
+                  md:w-[55px] md:h-[55px] md:text-2xl rounded-sm md:border-0
+                 md:text-slate-900
                   ${activeFeature === i ? 'md:bg-[#007EA7] md:text-white' : ''}
                 `}>
                   {f.icon}
