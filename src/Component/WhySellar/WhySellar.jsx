@@ -1,4 +1,4 @@
-import React from 'react';
+ import React from 'react';
 
 const WhySellar = () => {
     const comparisonData = [
@@ -19,7 +19,7 @@ const WhySellar = () => {
     return (
         <section
             id="why-sellar"
-            className="relative py-12 px-[10px] md:py-20 md:px-5 bg-[#f1f5f9] font-sans overflow-hidden"
+            className="relative py-10 px-[10px] md:py-10 md:px-4 bg-[#f1f5f9] font-sans overflow-hidden"
             style={{
                 backgroundImage: `
                     radial-gradient(circle at 0% 0%, #e2e8f0 0%, transparent 50%),

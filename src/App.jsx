@@ -12,6 +12,7 @@ import Footer from './Component/Footer/Footer.jsx';
 import Testimonials from './Component/Testimonials/Testimonials';
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import CalciShowCase from './Component/CalciShowCase/CalciShowCase';
 
 const App = () => {
   const location = useLocation();
@@ -40,6 +41,7 @@ const App = () => {
       <Navbar />
       <div id="home"><HeroSection /></div>
       <AppShowcase />
+      <CalciShowCase/>
       <CatalogueShowCase />
       <div id="solutions"><CoreSolution /></div>
       <div id="why-sellar"><WhySellar /></div>
