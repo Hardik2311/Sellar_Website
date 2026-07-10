@@ -83,7 +83,7 @@ const Pricing = () => {
                             POSI - billing
                         </button>
                         <button
-                            className={`px-4 md:px-6 py-2 rounded-lg text-xs md:text-sm font-bold transition-all ${activeService === 'catalogue' ? 'bg-white text-[#007EA7] shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                            className={`px-4 md:px-6 py-2 rounded-lg text-xs md:text-sm font-bold transition-all ${activeService === 'catalogue' ? 'bg-white text-[#F97316] shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
                             onClick={() => setActiveService('catalogue')}
                         >
                             CATALOG - digital store
@@ -109,8 +109,19 @@ const Pricing = () => {
                             <span className="text-[12px]  font-extrabold text-slate-400 tracking-widest  mb-1">
                                 Features
                             </span>
-                            <h3 className="text-xl md:text-2xl font-[1000] text-[#007EA7] tracking-tight  truncate">
-                                {activeService === 'pos' ? 'POSI' : 'Catalog'}
+                            <h3
+                                className={`text-xl md:text-2xl font-[1000] tracking-tight truncate ${activeService === 'catalogue'
+                                    ? 'text-[#F97316]'
+                                    : activeService === 'both'
+                                        ? 'text-yellow-500'
+                                        : 'text-[#007EA7]'
+                                    }`}
+                            >
+                                {activeService === 'pos'
+                                    ? 'POSI'
+                                    : activeService === 'catalogue'
+                                        ? 'Catalog'
+                                        : 'Both'}
                             </h3>
                         </div>
 
@@ -134,9 +145,11 @@ const Pricing = () => {
                         {/* Pro Price Section */}
                         <div className="p-4 md:p-8 text-center relative bg-blue-50/40 flex flex-col justify-center items-center">
                             {/* Best Seller Badge */}
-                            <div className={`absolute top-0 left-0 right-0 text-[9px] md:text-[10px] font-black py-1  tracking-tighter md:tracking-widest ${activeService === 'both'
-                                ? 'bg-yellow-500 text-white'
-                                : 'bg-[#007EA7] text-white'
+                            <div className={`absolute top-0 left-0 right-0 text-[9px] md:text-[11px] font-black py-1  tracking-tighter md:tracking-widest ${activeService === 'catalogue'
+                                ? 'bg-[#F97316] text-white'
+                                : activeService === 'both'
+                                    ? 'bg-yellow-500 text-black'
+                                    : 'bg-[#007EA7] text-white'
                                 }`}>
                                 Best Seller
                             </div>

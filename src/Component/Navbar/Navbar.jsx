@@ -107,6 +107,7 @@ const Navbar = () => {
           <div className="hidden md:block ml-2">
             <a
               href="https://app.sellar.in/signup"
+              target="_blank"
               className={`
                 font-semibold text-sm transition-all duration-300 rounded-sm
                 ${isScrolled
