@@ -6,28 +6,42 @@ const testimonials = [
     username: "@mvogue",
     review:
       "Humne recently ye system shop me use karna start kiya. Billing ab thodi fast ho gayi hai aur kaun sa item stock me hai wo bhi easily check ho jata hai. Pehle sab alag-alag likhna padta tha, ab kaam thoda easy ho gaya.",
-    img: "src/assets/testimonial.jpeg",
+    img: "/testimonial.jpeg",
   },
   {
     name: "GIFTINGURU - Indirapuram",
     username: "@giftinguru_indirapuram",
     review:
       "Shop me daily ka kaam manage karne me help milti hai. Billing aur products ka record ek jagah mil jata hai. Staff ko bhi use karna jaldi samajh aa gaya.",
-    img: "src/assets/TestimonialINDRA.jpg",
+    img: "/TestimonialINDRA.jpg",
+  },
+  {
+    name: "Daksh Toys",
+    username: "@dakshtoys",
+    review:
+      "Now we sell toys in Jalandhar, Kerala and Karnataka using their catalog services",
+    img: "/Dakshentre.jpeg",
   },
   {
     name: "GIFTINGURU - Siddharth Vihar",
     username: "@giftinguru_siddharthvihar",
     review:
       "System simple hai aur kaafi useful laga. Ab sales dekhna aur stock check karna easy ho gaya hai. Pehle thoda confusion ho jata tha but ab sab clear rehta hai.",
-    img: "src/assets/TestimonialSIDDHARTH.jpg",
+    img: "/TestimonialSiddharth.jpg",
+  },
+  {
+    name: "Aaliya Cosmetics",
+    username: "@aaliyacosmetics",
+    review:
+      "Badiya system hai. Bilkul Calculator ki tarah h.",
+    img: "/Aliyacosmetic.jpeg",
   },
   {
     name: "GIFTINGURU - Shakti Khand 4",
     username: "@giftinguru_shaktikhand",
     review:
       "Humare store ke liye kaafi helpful raha. Billing karte time time bach jata hai aur pata rehta hai ki kaunsa item kitna bacha hai. Overall experience accha raha abhi tak.",
-    img: "src/assets/TestimonialSHAKTI.jpg",
+    img: "/TestimonialSHAKTI.jpg",
   },
 ];
 
