@@ -1,7 +1,15 @@
 import React from 'react';
-import { Heart, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Heart } from 'lucide-react';
 import footerLogo from '../../assets/Sellar_Logo_white.png';
 import { Link } from "react-router-dom";
+import {
+    FaFacebook,
+    FaXTwitter,
+    FaInstagram,
+    FaLinkedin,
+    FaYoutube,
+    FaPinterest
+} from "react-icons/fa6";
 
 const Footer = () => {
     const scrollToSection = (id) => {
@@ -31,10 +39,30 @@ const Footer = () => {
                         {/* Social Links */}
                         <div className="flex gap-4">
                             {[
-                                { icon: <Facebook size={20} fill="#1877F2" stroke="none" />, url: "https://facebook.com" },
-                                { icon: <Twitter size={20} fill="#1DA1F2" stroke="none" />, url: "https://twitter.com" },
-                                { icon: <Instagram size={20} className="text-pink-500" />, url: "https://www.instagram.com/sellar.in?igsh=MXhobzJrMzIzbGdlaQ==" },
-                                { icon: <Linkedin size={20} fill="#0A66C2" stroke="none" />, url: "https://www.linkedin.com/company/sellar-in/" }
+                                {
+                                    icon: <FaFacebook size={20} color="#1877F2" />,
+                                    url: "https://www.facebook.com/profile.php?id=61583546437046",
+                                },
+                                {
+                                    icon: <FaXTwitter size={20} color="#FFFFFF" />,
+                                    url: "https://x.com/sellarsuite",
+                                },
+                                {
+                                    icon: <FaInstagram size={20} color="#E4405F" />,
+                                    url: "https://www.instagram.com/sellar.in?igsh=MXhobzJrMzIzbGdlaQ==",
+                                },
+                                {
+                                    icon: <FaLinkedin size={20} color="#0A66C2" />,
+                                    url: "https://www.linkedin.com/company/sellar-in/",
+                                },
+                                {
+                                    icon: <FaYoutube size={20} color="#FF0000" />,
+                                    url: "https://youtube.com/@app.sellar?si=AMORc3NPzr7_Bfq3",
+                                },
+                                {
+                                    icon: <FaPinterest size={20} color="#FF0000" />,
+                                    url: "https://in.pinterest.com/sellarsuite/?actingBusinessId=1119426188537057836",
+                                },
                             ].map((social, idx) => (
                                 <a
                                     key={idx}

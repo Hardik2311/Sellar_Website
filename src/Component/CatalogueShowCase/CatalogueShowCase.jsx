@@ -34,7 +34,7 @@ const CatalogueShowCase = () => {
             title: "Item Page",
             icon: "🔍",
             desc: "Let customers view products instantly with shareable links",
-            img: "/CatalogueShowCaseImages/CataShopItem.png"
+            img: "/CatalogueShowCaseImages/CataItems.jpeg"
         }
     ];
 
