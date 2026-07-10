@@ -47,7 +47,13 @@ const HeroSection = () => {
 
                         {/* Secondary Button */}
                         <button
-                            onClick={() => setShowDemo(true)}
+                            onClick={() =>
+                                window.open(
+                                    "https://youtube.com/@app.sellar?si=yNQIb5SZt_HRu0lH",
+                                    "_blank",
+                                    "noopener,noreferrer"
+                                )
+                            }
                             className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-white/10 text-white px-8 py-4 rounded-sm font-bold border border-white/50 hover:bg-white/20 transition-all duration-300 backdrop-blur-sm whitespace-nowrap"
                         >
                             <span className="text-xs">▶</span> Watch Demo
@@ -56,35 +62,6 @@ const HeroSection = () => {
                     </div>
                 </div>
             </div>
-
-            {/* --- Video Modal --- */}
-            {showDemo && (
-                <div
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-[#000b0f]/95 backdrop-blur-md p-5"
-                    onClick={() => setShowDemo(false)}
-                >
-                    <div
-                        className="relative w-full max-w-4xl bg-black rounded-3xl shadow-2xl overflow-hidden animate-[modalPop_0.4s_ease-out]"
-                        onClick={e => e.stopPropagation()}
-                    >
-                        <button
-                            className="absolute z-10 top-4 right-4 md:-top-10 md:-right-10 bg-white/20 hover:bg-white text-white hover:text-black w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300"
-                            onClick={() => setShowDemo(false)}
-                        >
-                            ✕
-                        </button>
-
-                        <div className="relative pb-[56.25%] h-0">
-                            <iframe
-                                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                                title="Demo"
-                                className="absolute top-0 left-0 w-full h-full border-0"
-                                allowFullScreen
-                            ></iframe>
-                        </div>
-                    </div>
-                </div>
-            )}
         </header>
     );
 };

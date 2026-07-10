@@ -16,19 +16,19 @@ const CalciShowCase = () => {
             title: "Dashboard",
             icon: "📊",
             desc: "See your total sales, trends, and performance at a glance.",
-            img: "/CalciImages/Dashboard.jpeg"
+            img: "/CalciImages/Dashboard.PNG"
         },
         {
             title: "Calculator",
             icon: "🧮",
             desc: "Just enter your sales and let the calculator handle the totals.",
-            img: "/CalciImages/Calculator.jpeg"
+            img: "/CalciImages/Calculator.PNG"
         },
         {
             title: "Transaction Page",
             icon: "💳",
             desc: "Track every transaction and never miss a single sale.",
-            img: "/CalciImages/Transaction.jpeg"
+            img: "/CalciImages/Transaction.PNG"
         },
     ];
 

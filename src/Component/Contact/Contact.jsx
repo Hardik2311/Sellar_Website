@@ -89,11 +89,12 @@ const Contact = () => {
         setIsSubmitting(true);
 
         try {
+            console.log("Before addDoc");
             const docRef = await addDoc(collection(db, "contacts"), {
                 ...formData,
                 submittedAt: new Date()
             });
-
+            console.log("After addDoc", docRef.id);
             console.log("Form Data Sent:", docRef.id);
             alert("Message Sent Successfully!");
 
