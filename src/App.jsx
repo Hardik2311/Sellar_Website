@@ -1,18 +1,19 @@
 import './App.css';
 import Navbar from './Component/Navbar/Navbar.jsx';
 import HeroSection from './Component/HeroSection/HeroSection.jsx';
-import WhySellar from './Component/WhySellar/WhySellar.jsx';
-import CoreSolution from './Component/CoreSolutions/CoreSolution.jsx';
 import PricingTable from './Component/PricingTable/PricingTable';
-import FutureVision from './Component/FutureVision/FutureVision.jsx';
-import AppShowcase from './Component/AppShowCase/AppShowCase.jsx';
-import CatalogueShowCase from './Component/CatalogueShowCase/CatalogueShowCase.jsx';
 import Contact from './Component/Contact/Contact.jsx';
 import Footer from './Component/Footer/Footer.jsx';
 import Testimonials from './Component/Testimonials/Testimonials';
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import CalciShowCase from './Component/CalciShowCase/CalciShowCase';
+import FeaturesSection from './Component/Features/Features';
+import ReportsSection from './Component/Reports/Reports';
+import BillFormatsSection from './Component/BillSection/BillSection';
+import WhoCanUseSection from './Component/WhoCanUseSellar/WhoCanUseSellar';
+import WebAppSection from './Component/WebAppSection/WebAppSection';
+import ProductsSection from './Component/OurProducts/OurProducts';
+import FAQ from './Component/FAQ/FAQ';
 
 const App = () => {
   const location = useLocation();
@@ -40,14 +41,15 @@ const App = () => {
     <div className="app-wrapper">
       <Navbar />
       <div id="home"><HeroSection /></div>
-      <AppShowcase />
-      <CalciShowCase/>
-      <CatalogueShowCase />
-      <div id="solutions"><CoreSolution /></div>
-      <div id="why-sellar"><WhySellar /></div>
+      <FeaturesSection/>
+      <WebAppSection/>
+      <ReportsSection/>
+      <BillFormatsSection/>
+      <WhoCanUseSection/>
+      <ProductsSection/>
       <div id="pricing"><PricingTable /></div>
-      <FutureVision />
       <Testimonials />
+      <FAQ/>
       <div id="contact"><Contact /></div>
       <Footer />
     </div>

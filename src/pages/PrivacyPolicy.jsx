@@ -14,7 +14,7 @@ const PrivacyPolicy = () => {
             <div className="mt-14 bg-white text-slate-900 min-h-screen px-6 py-16 font-sans">
                 <div className="max-w-3xl mx-auto">
 
-                    <header className="border-b border-slate-100 pb-8 mb-12">
+                    <header className="border-b border-slate-100 pb-8">
                         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-black mb-4">
                             Privacy Policy
                         </h1>
