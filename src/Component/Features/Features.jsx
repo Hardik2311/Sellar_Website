@@ -45,35 +45,112 @@ const SLIDE_DURATION = 4000; // ms per feature
 const TICK = 40; // ms per progress tick
 
 const FeaturesSection = () => {
+
+    // ================= DESKTOP STATES =================
     const [activeIndex, setActiveIndex] = useState(0);
     const [progress, setProgress] = useState(0);
+
     const elapsedRef = useRef(0);
     const activeIndexRef = useRef(0);
 
+
+    // ================= MOBILE TOP STATES =================
+    const [topActiveIndex, setTopActiveIndex] = useState(0);
+    const [topProgress, setTopProgress] = useState(0);
+
+    const topElapsedRef = useRef(0);
+
+
+    // ================= MOBILE BOTTOM STATES =================
+    const [bottomActiveIndex, setBottomActiveIndex] = useState(2);
+    const [bottomProgress, setBottomProgress] = useState(0);
+
+    const bottomElapsedRef = useRef(0);
+
+
+    // ================= DESKTOP SLIDER =================
     useEffect(() => {
         const id = setInterval(() => {
             elapsedRef.current += TICK;
 
             if (elapsedRef.current >= SLIDE_DURATION) {
                 elapsedRef.current = 0;
-                activeIndexRef.current = (activeIndexRef.current + 1) % FEATURES.length;
+
+                activeIndexRef.current =
+                    (activeIndexRef.current + 1) % FEATURES.length;
+
                 setActiveIndex(activeIndexRef.current);
                 setProgress(0);
             } else {
-                setProgress((elapsedRef.current / SLIDE_DURATION) * 100);
+                setProgress(
+                    (elapsedRef.current / SLIDE_DURATION) * 100
+                );
             }
         }, TICK);
 
         return () => clearInterval(id);
     }, []);
 
+
+    // ================= MOBILE TOP 2 SLIDER =================
+    useEffect(() => {
+        const id = setInterval(() => {
+            topElapsedRef.current += TICK;
+
+            if (topElapsedRef.current >= SLIDE_DURATION) {
+                topElapsedRef.current = 0;
+
+                setTopActiveIndex((prev) =>
+                    prev === 0 ? 1 : 0
+                );
+
+                setTopProgress(0);
+            } else {
+                setTopProgress(
+                    (topElapsedRef.current / SLIDE_DURATION) * 100
+                );
+            }
+        }, TICK);
+
+        return () => clearInterval(id);
+    }, []);
+
+
+    // ================= MOBILE BOTTOM 2 SLIDER =================
+    useEffect(() => {
+        const id = setInterval(() => {
+            bottomElapsedRef.current += TICK;
+
+            if (bottomElapsedRef.current >= SLIDE_DURATION) {
+                bottomElapsedRef.current = 0;
+
+                setBottomActiveIndex((prev) =>
+                    prev === 2 ? 3 : 2
+                );
+
+                setBottomProgress(0);
+            } else {
+                setBottomProgress(
+                    (bottomElapsedRef.current / SLIDE_DURATION) * 100
+                );
+            }
+        }, TICK);
+
+        return () => clearInterval(id);
+    }, []);
+
+
+    // ================= DESKTOP CARD CLICK =================
     const handleSelect = (index) => {
         activeIndexRef.current = index;
         elapsedRef.current = 0;
+
         setActiveIndex(index);
         setProgress(0);
     };
 
+
+    // ================= DESKTOP ACTIVE FEATURE =================
     const active = FEATURES[activeIndex];
 
     const renderImage = (feature, extraClass = '') => (
@@ -93,11 +170,11 @@ const FeaturesSection = () => {
     return (
         <section
             id="features"
-            className="relative w-full py-8 overflow-hidden bg-gradient-to-b from-white via-sky-50 to-white"
+            className="relative w-full py-8 overflow-hidden bg-white"
         >
             {/* Ambient background accents, consistent with hero */}
-            <div className="absolute top-0 left-1/3 w-[400px] h-[400px] bg-sky-100/50 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 right-0 w-[350px] h-[350px] bg-sky-200/30 rounded-full blur-3xl"></div>
+            <div className="absolute top-0 left-1/3 w-[400px] h-[400px] bg-blue-200/40 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 right-0 w-[350px] h-[350px] bg-sky-300/30 rounded-full blur-3xl"></div>
 
             <div className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 md:px-10">
 
@@ -124,15 +201,19 @@ const FeaturesSection = () => {
                         <div className="grid grid-cols-2 gap-3">
                             {FEATURES.slice(0, 2).map((feature, index) => {
                                 const Icon = feature.icon;
-                                const isActive = index === activeIndex;
+                                const isActive = index === topActiveIndex;
 
                                 return (
                                     <button
                                         key={feature.id}
-                                        onClick={() => handleSelect(index)}
+                                        onClick={() => {
+                                            setTopActiveIndex(index);
+                                            topElapsedRef.current = 0;
+                                            setTopProgress(0);
+                                        }}
                                         className={`relative flex min-h-[100px] flex-col items-center justify-center gap-2 overflow-hidden rounded-xl border bg-white p-3 text-center transition-all duration-300 ${isActive
-                                                ? "border-transparent shadow-lg"
-                                                : "border-slate-100 shadow-sm"
+                                            ? "border-transparent shadow-lg"
+                                            : "border-slate-100 shadow-sm"
                                             }`}
                                         style={{
                                             opacity: isActive ? 1 : 0.7,
@@ -147,17 +228,13 @@ const FeaturesSection = () => {
                                                 className="h-full"
                                                 style={{
                                                     width: isActive
-                                                        ? `${progress}%`
+                                                        ? `${topProgress}%`
                                                         : "0%",
                                                     backgroundColor: feature.color,
-                                                    transition: isActive
-                                                        ? "none"
-                                                        : "width 0.3s ease",
                                                 }}
                                             />
                                         </div>
 
-                                        {/* Icon */}
                                         <div
                                             className="flex h-10 w-10 items-center justify-center rounded-lg"
                                             style={{
@@ -170,7 +247,6 @@ const FeaturesSection = () => {
                                             />
                                         </div>
 
-                                        {/* Title */}
                                         <h3
                                             className="text-[10px] font-bold leading-tight"
                                             style={{
@@ -186,38 +262,39 @@ const FeaturesSection = () => {
                             })}
                         </div>
 
-                        {/* ================= IMAGE FOR TOP 2 ================= */}
+                        {/* ================= TOP IMAGE ================= */}
+                        <div className="relative w-full overflow-hidden rounded-2xl">
+                            <img
+                                key={FEATURES[topActiveIndex].id}
+                                src={FEATURES[topActiveIndex].image}
+                                alt={FEATURES[topActiveIndex].title}
+                                className="block h-auto w-full object-contain"
+                                style={{
+                                    animation:
+                                        "fadeScale 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
+                                }}
+                            />
+                        </div>
 
-                        {activeIndex < 2 && (
-                            <div className="relative w-full overflow-hidden rounded-2xl">
-                                <img
-                                    key={active.id}
-                                    src={active.image}
-                                    alt={active.title}
-                                    className="block h-auto w-full object-contain"
-                                    style={{
-                                        animation:
-                                            "fadeScale 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
-                                    }}
-                                />
-                            </div>
-                        )}
 
                         {/* ================= BOTTOM 2 CARDS ================= */}
-
                         <div className="grid grid-cols-2 gap-3">
                             {FEATURES.slice(2, 4).map((feature, localIndex) => {
                                 const index = localIndex + 2;
                                 const Icon = feature.icon;
-                                const isActive = index === activeIndex;
+                                const isActive = index === bottomActiveIndex;
 
                                 return (
                                     <button
                                         key={feature.id}
-                                        onClick={() => handleSelect(index)}
+                                        onClick={() => {
+                                            setBottomActiveIndex(index);
+                                            bottomElapsedRef.current = 0;
+                                            setBottomProgress(0);
+                                        }}
                                         className={`relative flex min-h-[100px] flex-col items-center justify-center gap-2 overflow-hidden rounded-xl border bg-white p-3 text-center transition-all duration-300 ${isActive
-                                                ? "border-transparent shadow-lg"
-                                                : "border-slate-100 shadow-sm"
+                                            ? "border-transparent shadow-lg"
+                                            : "border-slate-100 shadow-sm"
                                             }`}
                                         style={{
                                             opacity: isActive ? 1 : 0.7,
@@ -232,17 +309,13 @@ const FeaturesSection = () => {
                                                 className="h-full"
                                                 style={{
                                                     width: isActive
-                                                        ? `${progress}%`
+                                                        ? `${bottomProgress}%`
                                                         : "0%",
                                                     backgroundColor: feature.color,
-                                                    transition: isActive
-                                                        ? "none"
-                                                        : "width 0.3s ease",
                                                 }}
                                             />
                                         </div>
 
-                                        {/* Icon */}
                                         <div
                                             className="flex h-10 w-10 items-center justify-center rounded-lg"
                                             style={{
@@ -255,7 +328,6 @@ const FeaturesSection = () => {
                                             />
                                         </div>
 
-                                        {/* Title */}
                                         <h3
                                             className="text-[10px] font-bold leading-tight"
                                             style={{
@@ -271,22 +343,19 @@ const FeaturesSection = () => {
                             })}
                         </div>
 
-                        {/* ================= IMAGE FOR BOTTOM 2 ================= */}
-
-                        {activeIndex >= 2 && (
-                            <div className="relative w-full overflow-hidden rounded-2xl">
-                                <img
-                                    key={active.id}
-                                    src={active.image}
-                                    alt={active.title}
-                                    className="block h-auto w-full object-contain"
-                                    style={{
-                                        animation:
-                                            "fadeScale 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
-                                    }}
-                                />
-                            </div>
-                        )}
+                        {/* ================= BOTTOM IMAGE ================= */}
+                        <div className="relative w-full overflow-hidden rounded-2xl">
+                            <img
+                                key={FEATURES[bottomActiveIndex].id}
+                                src={FEATURES[bottomActiveIndex].image}
+                                alt={FEATURES[bottomActiveIndex].title}
+                                className="block h-auto w-full object-contain"
+                                style={{
+                                    animation:
+                                        "fadeScale 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
+                                }}
+                            />
+                        </div>
 
                     </div>
 
