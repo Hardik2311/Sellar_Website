@@ -103,7 +103,7 @@ const Terms = () => {
               </p>
 
               <p className="mt-3">
-                All payments made are generally non-refundable unless explicitly stated otherwise. In cases of failed payments, delayed payments, or chargebacks, Sellar reserves the right to suspend or restrict access to premium features until dues are cleared.
+                In cases of failed payments, delayed payments, or chargebacks, Sellar reserves the right to suspend or restrict access to premium features until any outstanding dues or payment-related issues are resolved.
               </p>
 
               <p className="mt-3">
@@ -114,7 +114,26 @@ const Terms = () => {
             {/* 6 */}
             <section>
               <h2 className="text-2xl font-bold text-black mb-4 flex items-center">
-                <span className="mr-3 text-slate-300">06</span> Data Ownership & Usage
+                <span className="mr-3 text-slate-300">06</span> Cancellation & Refund Policy
+              </h2>
+
+              <p>
+                As our services are provided on a yearly subscription basis, once a payment has been made, no refund will be available. This is because the necessary services, infrastructure, technical arrangements, and resources are established and paid for in advance for the entire subscription year.
+              </p>
+
+              <p className="mt-3">
+                Once a yearly subscription has been activated, cancellation of the subscription is not permitted.
+              </p>
+
+              <p className="mt-3">
+                However, in the event of a special emergency or exceptional circumstance, you may contact our support team using the contact details provided within the application. While the subscription cannot be cancelled or refunded, our team may provide appropriate support and assistance based on the circumstances.
+              </p>
+            </section>
+
+            {/* 7 */}
+            <section>
+              <h2 className="text-2xl font-bold text-black mb-4 flex items-center">
+                <span className="mr-3 text-slate-300">07</span> Data Ownership & Usage
               </h2>
               <p>
                 You retain full ownership of your business data, including but not limited to customer information, invoices, product listings, and transaction records.
@@ -125,10 +144,10 @@ const Terms = () => {
               </p>
             </section>
 
-            {/* 7 */}
+            {/* 8 */}
             <section>
               <h2 className="text-2xl font-bold text-black mb-4 flex items-center">
-                <span className="mr-3 text-slate-300">07</span> Prohibited Activities
+                <span className="mr-3 text-slate-300">08</span> Prohibited Activities
               </h2>
 
               <p>
@@ -149,10 +168,10 @@ const Terms = () => {
               </p>
             </section>
 
-            {/* 8 */}
+            {/* 9 */}
             <section>
               <h2 className="text-2xl font-bold text-black mb-4 flex items-center">
-                <span className="mr-3 text-slate-300">08</span> Service Availability & Reliability
+                <span className="mr-3 text-slate-300">09</span> Service Availability & Reliability
               </h2>
 
               <p>
@@ -172,10 +191,10 @@ const Terms = () => {
               </p>
             </section>
 
-            {/* 9 */}
+            {/* 10 */}
             <section>
               <h2 className="text-2xl font-bold text-black mb-4 flex items-center">
-                <span className="mr-3 text-slate-300">09</span> Limitation of Liability
+                <span className="mr-3 text-slate-300">10</span> Limitation of Liability
               </h2>
 
               <p>
@@ -198,10 +217,10 @@ const Terms = () => {
               </p>
             </section>
 
-            {/* 10 */}
+            {/* 11 */}
             <section>
               <h2 className="text-2xl font-bold text-black mb-4 flex items-center">
-                <span className="mr-3 text-slate-300">10</span> Intellectual Property Rights
+                <span className="mr-3 text-slate-300">11</span> Intellectual Property Rights
               </h2>
 
               <p>
@@ -221,10 +240,10 @@ const Terms = () => {
               </p>
             </section>
 
-            {/* 11 */}
+            {/* 12 */}
             <section>
               <h2 className="text-2xl font-bold text-black mb-4 flex items-center">
-                <span className="mr-3 text-slate-300">11</span> Termination & Suspension
+                <span className="mr-3 text-slate-300">12</span> Termination & Suspension
               </h2>
 
               <p>
@@ -244,10 +263,10 @@ const Terms = () => {
               </p>
             </section>
 
-            {/* 12 */}
+            {/* 13 */}
             <section>
               <h2 className="text-2xl font-bold text-black mb-4 flex items-center">
-                <span className="mr-3 text-slate-300">12</span> Governing Law
+                <span className="mr-3 text-slate-300">13</span> Governing Law
               </h2>
 
               <p>
@@ -263,10 +282,10 @@ const Terms = () => {
               </p>
             </section>
 
-            {/* 13 */}
+            {/* 14 */}
             <section>
               <h2 className="text-2xl font-bold text-black mb-4 flex items-center">
-                <span className="mr-3 text-slate-300">13</span> Changes to Terms
+                <span className="mr-3 text-slate-300">14</span> Changes to Terms
               </h2>
 
               <p>

@@ -41,7 +41,7 @@ const WebAppSection = () => {
     return (
         <section
             id="webApp"
-            className="relative w-full py-12 overflow-hidden bg-gradient-to-br from-sky-50 via-white to-violet-50"
+            className="relative w-full py-12 overflow-hidden bg-sky-100"
         >
             {/* Subtle dot-grid tech texture */}
             <div
