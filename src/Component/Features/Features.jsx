@@ -263,7 +263,7 @@ const FeaturesSection = () => {
                         </div>
 
                         {/* ================= TOP IMAGE ================= */}
-                        <div className="relative w-full overflow-hidden rounded-2xl">
+                        <div className="relative w-full h-[360px] flex items-center justify-center">
                             <img
                                 key={FEATURES[topActiveIndex].id}
                                 src={FEATURES[topActiveIndex].image}
@@ -344,12 +344,12 @@ const FeaturesSection = () => {
                         </div>
 
                         {/* ================= BOTTOM IMAGE ================= */}
-                        <div className="relative w-full overflow-hidden rounded-2xl">
+                        <div className="relative w-full h-[360px] flex items-center justify-center">
                             <img
                                 key={FEATURES[bottomActiveIndex].id}
                                 src={FEATURES[bottomActiveIndex].image}
                                 alt={FEATURES[bottomActiveIndex].title}
-                                className="block h-auto w-full object-contain"
+                                className="max-w-full max-h-full w-auto h-auto object-contain"
                                 style={{
                                     animation:
                                         "fadeScale 0.6s cubic-bezier(0.22, 1, 0.36, 1)",

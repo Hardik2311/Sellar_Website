@@ -13,7 +13,10 @@ import {
     TrendingUp,
     WalletCards,
     CreditCard,
-    ChevronDown
+    ChevronDown,
+    CalendarPlus,
+    Users,
+    QrCode
 } from 'lucide-react';
 
 const PRODUCTS = [
@@ -118,14 +121,31 @@ const PRODUCTS = [
         number: '04',
         name: 'Sellar Events',
         shortName: 'Event Management',
-        tagline: 'Something exciting is coming.',
-        description: '',
+        tagline: 'Everything you need to run your events.',
+        description:
+            'A complete event management platform to create events, manage attendees, collect payments, track ticket sales, and monitor your event performance in real time.',
         color: '#059669',
         colorSoft: '#d1fae5',
         icon: CalendarDays,
-        image: '',
-        features: [],
-        comingSoon: true,
+        image: '/Events.png',
+        features: [
+            {
+                icon: CalendarPlus,
+                title: 'Easy Event Creation',
+            },
+            {
+                icon: Users,
+                title: 'Attendee Management',
+            },
+            {
+                icon: QrCode,
+                title: 'Direct UPI Payments',
+            },
+            {
+                icon: BarChart3,
+                title: 'Real-time Analytics',
+            },
+        ],
     },
 ];
 
