@@ -263,7 +263,7 @@ const FeaturesSection = () => {
                         </div>
 
                         {/* ================= TOP IMAGE ================= */}
-                        <div className="relative w-full h-[360px] flex items-center justify-center">
+                        <div className="relative w-full h-[450px] flex items-center justify-center">
                             <img
                                 key={FEATURES[topActiveIndex].id}
                                 src={FEATURES[topActiveIndex].image}
@@ -344,7 +344,7 @@ const FeaturesSection = () => {
                         </div>
 
                         {/* ================= BOTTOM IMAGE ================= */}
-                        <div className="relative w-full h-[360px] flex items-center justify-center">
+                        <div className="relative w-full h-[450px] flex items-center justify-center">
                             <img
                                 key={FEATURES[bottomActiveIndex].id}
                                 src={FEATURES[bottomActiveIndex].image}
