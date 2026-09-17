@@ -100,7 +100,7 @@ const Pricing = () => {
     return (
         <section
             id="pricing"
-            className="relative py-8 md:py-16 px-4 md:px-6 overflow-hidden bg-gradient-to-br from-slate-50 via-violet-50/70 to-sky-50"
+            className="relative py-8 px-4 md:px-6 overflow-hidden bg-gradient-to-br from-slate-50 via-violet-50/70 to-sky-50"
         >
             {/* Ambient Background */}
             <div className="absolute -top-32 left-1/4 w-[500px] h-[500px] rounded-full bg-violet-200/30 blur-3xl pointer-events-none" />
