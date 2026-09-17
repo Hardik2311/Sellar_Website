@@ -1,203 +1,219 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import {
     ArrowLeftRight,
     Barcode,
     ScanLine,
     MessageCircle,
-} from 'lucide-react';
+    ArrowRight,
+} from "lucide-react";
+
+/* =========================================================
+   FEATURES DATA
+========================================================= */
 
 const FEATURES = [
     {
-        id: 'stock-transfer',
-        title: 'Stock Transfer (Godown ⇄ Shop)',
-        color: '#f97316', // orange
-        colorSoft: '#ffedd5',
+        id: "stock-transfer",
+        title: "Stock Transfer (Godown ⇄ Shop)",
+        color: "#f97316",
+        colorSoft: "#ffedd5",
         icon: ArrowLeftRight,
-        image: '/Stock Transfer.png',
+        image: "/Stock Transfer.png",
     },
     {
-        id: 'generate-barcode',
-        title: 'Generate Barcodes',
-        color: '#db2777', // pink
-        colorSoft: '#fce7f3',
+        id: "generate-barcode",
+        title: "Generate Barcodes",
+        color: "#db2777",
+        colorSoft: "#fce7f3",
         icon: Barcode,
-        image: '/Generate-Barcodes.png',
+        image: "/Generate-Barcodes.png",
     },
     {
-        id: 'scan-barcode',
-        title: 'Scan Barcodes with Your Phone',
-        color: '#9333ea', // purple
-        colorSoft: '#f3e8ff',
+        id: "scan-barcode",
+        title: "Scan Barcodes with Your Phone",
+        color: "#9333ea",
+        colorSoft: "#f3e8ff",
         icon: ScanLine,
-        image: '/Barcode-Scan.png',
+        image: "/Barcode-Scan.png",
     },
     {
-        id: 'whatsapp-share',
-        title: 'Share Bills on WhatsApp',
-        color: '#0d9488', // teal
-        colorSoft: '#ccfbf1',
+        id: "whatsapp-share",
+        title: "Share Bills on WhatsApp",
+        color: "#0d9488",
+        colorSoft: "#ccfbf1",
         icon: MessageCircle,
-        image: '/WhatsApp Share.png',
+        image: "/WhatsApp Share.png",
     },
 ];
 
-const SLIDE_DURATION = 4000; // ms per feature
-const TICK = 40; // ms per progress tick
+/* =========================================================
+   IMAGE ANIMATION
+========================================================= */
 
-const FeaturesSection = () => {
+const imageVariants = {
+    initial: {
+        opacity: 0,
+        scale: 0.96,
+    },
+    animate: {
+        opacity: 1,
+        scale: 1,
+    },
+    exit: {
+        opacity: 0,
+        scale: 1.02,
+    },
+};
 
-    // ================= DESKTOP STATES =================
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [progress, setProgress] = useState(0);
+const imageTransition = {
+    duration: 0.65,
+    ease: [0.22, 1, 0.36, 1],
+};
 
-    const elapsedRef = useRef(0);
-    const activeIndexRef = useRef(0);
+/* =========================================================
+   SMOOTH IMAGE COMPONENT
 
+   IMPORTANT:
+   This component is outside FeaturesSection.
+   This prevents one mobile image from remounting when
+   the other mobile image changes.
+========================================================= */
 
-    // ================= MOBILE TOP STATES =================
-    const [topActiveIndex, setTopActiveIndex] = useState(0);
-    const [topProgress, setTopProgress] = useState(0);
-
-    const topElapsedRef = useRef(0);
-
-
-    // ================= MOBILE BOTTOM STATES =================
-    const [bottomActiveIndex, setBottomActiveIndex] = useState(2);
-    const [bottomProgress, setBottomProgress] = useState(0);
-
-    const bottomElapsedRef = useRef(0);
-
-
-    // ================= DESKTOP SLIDER =================
-    useEffect(() => {
-        const id = setInterval(() => {
-            elapsedRef.current += TICK;
-
-            if (elapsedRef.current >= SLIDE_DURATION) {
-                elapsedRef.current = 0;
-
-                activeIndexRef.current =
-                    (activeIndexRef.current + 1) % FEATURES.length;
-
-                setActiveIndex(activeIndexRef.current);
-                setProgress(0);
-            } else {
-                setProgress(
-                    (elapsedRef.current / SLIDE_DURATION) * 100
-                );
-            }
-        }, TICK);
-
-        return () => clearInterval(id);
-    }, []);
-
-
-    // ================= MOBILE TOP 2 SLIDER =================
-    useEffect(() => {
-        const id = setInterval(() => {
-            topElapsedRef.current += TICK;
-
-            if (topElapsedRef.current >= SLIDE_DURATION) {
-                topElapsedRef.current = 0;
-
-                setTopActiveIndex((prev) =>
-                    prev === 0 ? 1 : 0
-                );
-
-                setTopProgress(0);
-            } else {
-                setTopProgress(
-                    (topElapsedRef.current / SLIDE_DURATION) * 100
-                );
-            }
-        }, TICK);
-
-        return () => clearInterval(id);
-    }, []);
-
-
-    // ================= MOBILE BOTTOM 2 SLIDER =================
-    useEffect(() => {
-        const id = setInterval(() => {
-            bottomElapsedRef.current += TICK;
-
-            if (bottomElapsedRef.current >= SLIDE_DURATION) {
-                bottomElapsedRef.current = 0;
-
-                setBottomActiveIndex((prev) =>
-                    prev === 2 ? 3 : 2
-                );
-
-                setBottomProgress(0);
-            } else {
-                setBottomProgress(
-                    (bottomElapsedRef.current / SLIDE_DURATION) * 100
-                );
-            }
-        }, TICK);
-
-        return () => clearInterval(id);
-    }, []);
-
-
-    // ================= DESKTOP CARD CLICK =================
-    const handleSelect = (index) => {
-        activeIndexRef.current = index;
-        elapsedRef.current = 0;
-
-        setActiveIndex(index);
-        setProgress(0);
-    };
-
-
-    // ================= DESKTOP ACTIVE FEATURE =================
-    const active = FEATURES[activeIndex];
-
-    const renderImage = (feature, extraClass = '') => (
-        <div className={`relative w-full max-w-[700px] ${extraClass}`}>
-            <img
+const SmoothImage = ({ feature, className = "" }) => {
+    return (
+        <AnimatePresence mode="sync" initial={false}>
+            <motion.img
                 key={feature.id}
                 src={feature.image}
                 alt={feature.title}
-                className="block w-full h-auto object-contain"
-                style={{
-                    animation: 'fadeScale 0.6s cubic-bezier(0.22, 1, 0.36, 1)',
-                }}
+                variants={imageVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                transition={imageTransition}
+                className={className}
             />
-        </div>
+        </AnimatePresence>
     );
+};
+
+const DesktopImage = ({ feature, className = "" }) => {
+    return (
+        <img
+            key={feature.id}
+            src={feature.image}
+            alt={feature.title}
+            className={className}
+        />
+    );
+};
+
+/* =========================================================
+   FEATURES SECTION
+========================================================= */
+
+const FeaturesSection = () => {
+    /* =====================================================
+       DESKTOP ACTIVE FEATURE
+    ===================================================== */
+
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    /* =====================================================
+       MOBILE TOP
+
+       Default:
+       Stock Transfer selected
+    ===================================================== */
+
+    const [topActiveIndex, setTopActiveIndex] = useState(0);
+
+    /* =====================================================
+       MOBILE BOTTOM
+
+       Default:
+       Scan Barcodes selected
+    ===================================================== */
+
+    const [bottomActiveIndex, setBottomActiveIndex] = useState(2);
+
+    /* =====================================================
+       DESKTOP SELECT
+    ===================================================== */
+
+    const handleDesktopSelect = (index) => {
+        setActiveIndex(index);
+    };
+
+    /* =====================================================
+       MOBILE TOP SELECT
+
+       Only TOP section changes
+    ===================================================== */
+
+    const handleTopSelect = (index) => {
+        setTopActiveIndex(index);
+    };
+
+    /* =====================================================
+       MOBILE BOTTOM SELECT
+
+       Only BOTTOM section changes
+    ===================================================== */
+
+    const handleBottomSelect = (index) => {
+        setBottomActiveIndex(index);
+    };
 
     return (
-        <section
-            id="features"
-            className="relative w-full py-8 overflow-hidden bg-white"
-        >
-            {/* Ambient background accents, consistent with hero */}
-            <div className="absolute top-0 left-1/3 w-[400px] h-[400px] bg-blue-200/40 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 right-0 w-[350px] h-[350px] bg-sky-300/30 rounded-full blur-3xl"></div>
+        <section id="features" className="relative w-full overflow-hidden bg-white py-8">
+            {/* =====================================================
+                BACKGROUND ACCENTS
+            ===================================================== */}
 
-            <div className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 md:px-10">
+            <div className="absolute left-1/3 top-0 h-[400px] w-[400px] rounded-full bg-blue-200/40 blur-3xl" />
 
-                {/* Headline */}
-                <div className="text-left max-w-2xl mb-6">
-                    <span className="inline-block text-sm font-bold tracking-widest text-sky-600 uppercase mb-3">
+            <div className="absolute bottom-0 right-0 h-[350px] w-[350px] rounded-full bg-sky-300/30 blur-3xl" />
+
+            {/* =====================================================
+                MAIN CONTAINER
+            ===================================================== */}
+
+            <div className="relative z-10 mx-auto max-w-7xl px-3 sm:px-6 md:px-10">
+                {/* =================================================
+                    SECTION HEADING
+                ================================================= */}
+
+                <div className="mb-6 max-w-2xl text-left">
+                    <span className="mb-3 inline-block text-sm font-bold uppercase tracking-widest text-sky-600">
                         Everything, Built In
                     </span>
-                    <h2 className="text-3xl md:text-5xl font-black text-[#00171f] leading-[1.15] tracking-tight">
+
+                    <h2 className="text-3xl font-black leading-[1.15] tracking-tight text-[#00171f] md:text-5xl">
                         One App That Runs Every Corner of Your Shop
                     </h2>
-                    <p className="text-slate-600 text-base md:text-lg mt-4 leading-relaxed">
-                        From billing to barcodes, here's everything Sellar handles for you so you don't need six different tools.
+
+                    <p className="mt-4 text-base leading-relaxed text-slate-600 md:text-lg">
+                        From billing to barcodes, here's everything Sellar handles
+                        for you so you don't need six different tools.
                     </p>
                 </div>
 
-                {/* Content */}
-                <div className="flex flex-col md:flex-row items-start gap-4 md:gap-16">
+                {/* =================================================
+                    CONTENT
+                ================================================= */}
 
-                    {/* ================= MOBILE VIEW ================= */}
+                <div className="flex flex-col items-start gap-4 md:flex-row md:gap-16">
+                    {/* =================================================
+                        MOBILE VIEW
+                    ================================================= */}
+
                     <div className="flex w-full flex-col gap-5 md:hidden">
+                        {/* =================================================
+                            TOP FEATURE CARDS
+                        ================================================= */}
 
-                        {/* ================= TOP 2 CARDS ================= */}
                         <div className="grid grid-cols-2 gap-3">
                             {FEATURES.slice(0, 2).map((feature, index) => {
                                 const Icon = feature.icon;
@@ -206,78 +222,95 @@ const FeaturesSection = () => {
                                 return (
                                     <button
                                         key={feature.id}
-                                        onClick={() => {
-                                            setTopActiveIndex(index);
-                                            topElapsedRef.current = 0;
-                                            setTopProgress(0);
-                                        }}
-                                        className={`relative flex min-h-[100px] flex-col items-center justify-center gap-2 overflow-hidden rounded-xl border bg-white p-3 text-center transition-all duration-300 ${isActive
-                                            ? "border-transparent shadow-lg"
-                                            : "border-slate-100 shadow-sm"
-                                            }`}
+                                        type="button"
+                                        onClick={() => handleTopSelect(index)}
+                                        className={`group relative flex min-h-[125px] cursor-pointer flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl border bg-white p-3 text-center transition-all duration-300 ease-out active:scale-[0.97] ${isActive ? "shadow-lg" : "border-slate-200 shadow-sm hover:-translate-y-1 hover:shadow-lg"}`}
                                         style={{
-                                            opacity: isActive ? 1 : 0.7,
-                                            transform: isActive
-                                                ? "scale(1.02)"
-                                                : "scale(1)",
+                                            borderColor: isActive
+                                                ? feature.color
+                                                : undefined,
                                         }}
                                     >
-                                        {/* Progress Bar */}
-                                        <div className="absolute left-0 top-0 h-[3px] w-full bg-slate-100">
-                                            <div
-                                                className="h-full"
-                                                style={{
-                                                    width: isActive
-                                                        ? `${topProgress}%`
-                                                        : "0%",
-                                                    backgroundColor: feature.color,
-                                                }}
-                                            />
-                                        </div>
+                                        {/* TOP ACTIVE LINE */}
 
                                         <div
-                                            className="flex h-10 w-10 items-center justify-center rounded-lg"
+                                            className="absolute left-0 top-0 h-1 w-full transition-opacity duration-300"
+                                            style={{
+                                                backgroundColor: feature.color,
+                                                opacity: isActive ? 1 : 0,
+                                            }}
+                                        />
+
+                                        {/* CLICK DOT */}
+
+                                        <div
+                                            className="absolute right-3 top-3 h-2 w-2 rounded-full transition-transform duration-300 group-hover:scale-125"
+                                            style={{
+                                                backgroundColor: feature.color,
+                                            }}
+                                        />
+
+                                        {/* ICON */}
+
+                                        <div
+                                            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110"
                                             style={{
                                                 backgroundColor: feature.colorSoft,
                                             }}
                                         >
                                             <Icon
-                                                size={19}
-                                                style={{ color: feature.color }}
+                                                size={20}
+                                                strokeWidth={2}
+                                                style={{
+                                                    color: feature.color,
+                                                }}
                                             />
                                         </div>
 
+                                        {/* TITLE */}
+
                                         <h3
-                                            className="text-[10px] font-bold leading-tight"
+                                            className="block w-full text-[11px] font-bold leading-tight"
                                             style={{
                                                 color: isActive
                                                     ? feature.color
-                                                    : "#475569",
+                                                    : "#334155",
                                             }}
                                         >
                                             {feature.title}
                                         </h3>
+
+                                        {/* CLICK TO EXPLORE */}
+
+                                        <span
+                                            className="flex items-center gap-1 text-[9px] font-semibold opacity-80"
+                                            style={{
+                                                color: feature.color,
+                                            }}
+                                        >
+                                            Click to explore
+                                            <ArrowRight size={10} />
+                                        </span>
                                     </button>
                                 );
                             })}
                         </div>
 
-                        {/* ================= TOP IMAGE ================= */}
-                        <div className="relative w-full h-[450px] flex items-center justify-center">
-                            <img
-                                key={FEATURES[topActiveIndex].id}
-                                src={FEATURES[topActiveIndex].image}
-                                alt={FEATURES[topActiveIndex].title}
-                                className="block h-auto w-full object-contain"
-                                style={{
-                                    animation:
-                                        "fadeScale 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
-                                }}
+                        {/* =================================================
+                            TOP IMAGE
+                        ================================================= */}
+
+                        <div className="relative flex h-[450px] w-full items-center justify-center overflow-hidden">
+                            <SmoothImage
+                                feature={FEATURES[topActiveIndex]}
+                                className="absolute max-h-full max-w-full object-contain"
                             />
                         </div>
 
+                        {/* =================================================
+                            BOTTOM FEATURE CARDS
+                        ================================================= */}
 
-                        {/* ================= BOTTOM 2 CARDS ================= */}
                         <div className="grid grid-cols-2 gap-3">
                             {FEATURES.slice(2, 4).map((feature, localIndex) => {
                                 const index = localIndex + 2;
@@ -287,83 +320,102 @@ const FeaturesSection = () => {
                                 return (
                                     <button
                                         key={feature.id}
-                                        onClick={() => {
-                                            setBottomActiveIndex(index);
-                                            bottomElapsedRef.current = 0;
-                                            setBottomProgress(0);
-                                        }}
-                                        className={`relative flex min-h-[100px] flex-col items-center justify-center gap-2 overflow-hidden rounded-xl border bg-white p-3 text-center transition-all duration-300 ${isActive
-                                            ? "border-transparent shadow-lg"
-                                            : "border-slate-100 shadow-sm"
-                                            }`}
+                                        type="button"
+                                        onClick={() => handleBottomSelect(index)}
+                                        className={`group relative flex min-h-[125px] cursor-pointer flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl border bg-white p-3 text-center transition-all duration-300 ease-out active:scale-[0.97] ${isActive ? "shadow-lg" : "border-slate-200 shadow-sm hover:-translate-y-1 hover:shadow-lg"}`}
                                         style={{
-                                            opacity: isActive ? 1 : 0.7,
-                                            transform: isActive
-                                                ? "scale(1.02)"
-                                                : "scale(1)",
+                                            borderColor: isActive
+                                                ? feature.color
+                                                : undefined,
                                         }}
                                     >
-                                        {/* Progress Bar */}
-                                        <div className="absolute left-0 top-0 h-[3px] w-full bg-slate-100">
-                                            <div
-                                                className="h-full"
-                                                style={{
-                                                    width: isActive
-                                                        ? `${bottomProgress}%`
-                                                        : "0%",
-                                                    backgroundColor: feature.color,
-                                                }}
-                                            />
-                                        </div>
+                                        {/* TOP ACTIVE LINE */}
 
                                         <div
-                                            className="flex h-10 w-10 items-center justify-center rounded-lg"
+                                            className="absolute left-0 top-0 h-1 w-full transition-opacity duration-300"
+                                            style={{
+                                                backgroundColor: feature.color,
+                                                opacity: isActive ? 1 : 0,
+                                            }}
+                                        />
+
+                                        {/* CLICK DOT */}
+
+                                        <div
+                                            className="absolute right-3 top-3 h-2 w-2 rounded-full transition-transform duration-300 group-hover:scale-125"
+                                            style={{
+                                                backgroundColor: feature.color,
+                                            }}
+                                        />
+
+                                        {/* ICON */}
+
+                                        <div
+                                            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110"
                                             style={{
                                                 backgroundColor: feature.colorSoft,
                                             }}
                                         >
                                             <Icon
-                                                size={19}
-                                                style={{ color: feature.color }}
+                                                size={20}
+                                                strokeWidth={2}
+                                                style={{
+                                                    color: feature.color,
+                                                }}
                                             />
                                         </div>
 
+                                        {/* TITLE */}
+
                                         <h3
-                                            className="text-[10px] font-bold leading-tight"
+                                            className="block w-full text-[11px] font-bold leading-tight"
                                             style={{
                                                 color: isActive
                                                     ? feature.color
-                                                    : "#475569",
+                                                    : "#334155",
                                             }}
                                         >
                                             {feature.title}
                                         </h3>
+
+                                        {/* CLICK TO EXPLORE */}
+
+                                        <span
+                                            className="flex items-center gap-1 text-[9px] font-semibold opacity-80"
+                                            style={{
+                                                color: feature.color,
+                                            }}
+                                        >
+                                            Click to explore
+                                            <ArrowRight size={10} />
+                                        </span>
                                     </button>
                                 );
                             })}
                         </div>
 
-                        {/* ================= BOTTOM IMAGE ================= */}
-                        <div className="relative w-full h-[450px] flex items-center justify-center">
-                            <img
-                                key={FEATURES[bottomActiveIndex].id}
-                                src={FEATURES[bottomActiveIndex].image}
-                                alt={FEATURES[bottomActiveIndex].title}
-                                className="max-w-full max-h-full w-auto h-auto object-contain"
-                                style={{
-                                    animation:
-                                        "fadeScale 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
-                                }}
+                        {/* =================================================
+                            BOTTOM IMAGE
+                        ================================================= */}
+
+                        <div className="relative flex h-[450px] w-full items-center justify-center overflow-hidden">
+                            <SmoothImage
+                                feature={FEATURES[bottomActiveIndex]}
+                                className="absolute max-h-full max-w-full object-contain"
                             />
                         </div>
-
                     </div>
 
-                    {/* ================= DESKTOP VIEW ================= */}
-                    <div className="hidden md:flex w-full gap-16 items-start">
+                    {/* =================================================
+                        DESKTOP VIEW
+                    ================================================= */}
 
-                        {/* Left Feature List */}
-                        <div className="w-1/2 flex flex-col gap-4">
+                    <div className="hidden w-full items-start gap-16 md:flex">
+                        {/* =================================================
+                            DESKTOP FEATURE CARDS
+                        ================================================= */}
+
+                        <div className="flex w-1/2 flex-col gap-4">
                             {FEATURES.map((feature, index) => {
                                 const Icon = feature.icon;
                                 const isActive = index === activeIndex;
@@ -371,66 +423,83 @@ const FeaturesSection = () => {
                                 return (
                                     <button
                                         key={feature.id}
-                                        onClick={() => handleSelect(index)}
-                                        className={`group relative text-left bg-white rounded-2xl border transition-all duration-500 ease-out overflow-hidden ${isActive
-                                            ? 'shadow-xl scale-[1.03] border-transparent'
-                                            : 'shadow-sm scale-100 border-slate-100 hover:shadow-md hover:scale-[1.01]'
-                                            }`}
+                                        type="button"
+                                        onClick={() => handleDesktopSelect(index)}
+                                        className={`group relative w-full cursor-pointer overflow-hidden rounded-2xl border bg-white text-left transition-all duration-300 ease-out active:scale-[0.99] ${isActive ? "scale-[1.02] shadow-xl" : "border-slate-200 shadow-sm hover:-translate-y-1 hover:scale-[1.01] hover:shadow-lg"}`}
                                         style={{
-                                            opacity: isActive ? 1 : 0.75,
+                                            borderColor: isActive
+                                                ? feature.color
+                                                : undefined,
                                         }}
                                     >
-                                        {/* Timeline progress track */}
-                                        <div className="absolute top-0 left-0 w-full h-1 bg-slate-100">
-                                            <div
-                                                className="h-full"
-                                                style={{
-                                                    width: isActive
-                                                        ? `${progress}%`
-                                                        : index < activeIndex
-                                                            ? '100%'
-                                                            : '0%',
-                                                    backgroundColor: feature.color,
-                                                    transition: isActive
-                                                        ? 'none'
-                                                        : 'width 0.3s ease',
-                                                }}
-                                            />
-                                        </div>
+                                        {/* ACTIVE LEFT LINE */}
 
-                                        <div className="flex items-start gap-4 px-6 py-5 pt-6">
+                                        <div
+                                            className="absolute left-0 top-0 h-full w-1 transition-opacity duration-300"
+                                            style={{
+                                                backgroundColor: feature.color,
+                                                opacity: isActive ? 1 : 0,
+                                            }}
+                                        />
 
-                                            {/* Icon badge */}
+                                        {/* CARD CONTENT */}
+
+                                        <div className="flex items-center gap-4 px-6 py-5">
+                                            {/* ICON */}
+
                                             <div
-                                                className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center transition-transform duration-500"
+                                                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110"
                                                 style={{
-                                                    backgroundColor: feature.colorSoft,
-                                                    transform: isActive
-                                                        ? 'scale(1.08)'
-                                                        : 'scale(1)',
+                                                    backgroundColor:
+                                                        feature.colorSoft,
                                                 }}
                                             >
                                                 <Icon
-                                                    size={20}
-                                                    style={{ color: feature.color }}
+                                                    size={21}
+                                                    strokeWidth={2}
+                                                    style={{
+                                                        color: feature.color,
+                                                    }}
                                                 />
                                             </div>
 
-                                            <div>
+                                            {/* TITLE + HINT */}
+
+                                            <div className="min-w-0 flex-1">
                                                 <h3
-                                                    className="font-bold text-base md:text-lg mb-1 transition-colors duration-300"
+                                                    className="block text-base font-bold leading-snug transition-colors duration-300 md:text-lg"
                                                     style={{
                                                         color: isActive
                                                             ? feature.color
-                                                            : '#00171f',
+                                                            : "#00171f",
                                                     }}
                                                 >
                                                     {feature.title}
                                                 </h3>
 
-                                                <p className="text-sm text-slate-500 leading-relaxed">
-                                                    {feature.description}
-                                                </p>
+                                                <span
+                                                    className="mt-1 flex items-center gap-1 text-xs font-semibold"
+                                                    style={{
+                                                        color: feature.color,
+                                                        opacity: 0.8,
+                                                    }}
+                                                >
+                                                    Click to explore
+                                                    <ArrowRight size={12} />
+                                                </span>
+                                            </div>
+
+                                            {/* ARROW BUTTON */}
+
+                                            <div
+                                                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-all duration-300 group-hover:translate-x-1"
+                                                style={{
+                                                    backgroundColor:
+                                                        feature.colorSoft,
+                                                    color: feature.color,
+                                                }}
+                                            >
+                                                <ArrowRight size={17} />
                                             </div>
                                         </div>
                                     </button>
@@ -438,20 +507,19 @@ const FeaturesSection = () => {
                             })}
                         </div>
 
-                        {/* Right Feature Image */}
-                        <div className="w-1/2 sticky top-16 -mt-20">
-                            {renderImage(active)}
+                        {/* =================================================
+                            DESKTOP IMAGE
+                        ================================================= */}
+
+                        <div className="sticky top-16 -mt-20 flex w-1/2 items-center justify-center">
+                            <DesktopImage
+                                feature={FEATURES[activeIndex]}
+                                className="block h-auto w-full object-contain"
+                            />
                         </div>
                     </div>
                 </div>
             </div>
-
-            <style>{`
-                @keyframes fadeScale {
-                    from { opacity: 0; transform: scale(0.94); }
-                    to { opacity: 1; transform: scale(1); }
-                }
-            `}</style>
         </section>
     );
 };
