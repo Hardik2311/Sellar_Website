@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import {
     ArrowLeftRight,
     Barcode,
@@ -7,10 +6,6 @@ import {
     MessageCircle,
     ArrowRight,
 } from "lucide-react";
-
-/* =========================================================
-   FEATURES DATA
-========================================================= */
 
 const FEATURES = [
     {
@@ -47,54 +42,15 @@ const FEATURES = [
     },
 ];
 
-/* =========================================================
-   IMAGE ANIMATION
-========================================================= */
-
-const imageVariants = {
-    initial: {
-        opacity: 0,
-        scale: 0.96,
-    },
-    animate: {
-        opacity: 1,
-        scale: 1,
-    },
-    exit: {
-        opacity: 0,
-        scale: 1.02,
-    },
-};
-
-const imageTransition = {
-    duration: 0.65,
-    ease: [0.22, 1, 0.36, 1],
-};
-
-/* =========================================================
-   SMOOTH IMAGE COMPONENT
-
-   IMPORTANT:
-   This component is outside FeaturesSection.
-   This prevents one mobile image from remounting when
-   the other mobile image changes.
-========================================================= */
 
 const SmoothImage = ({ feature, className = "" }) => {
     return (
-        <AnimatePresence mode="sync" initial={false}>
-            <motion.img
-                key={feature.id}
-                src={feature.image}
-                alt={feature.title}
-                variants={imageVariants}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                transition={imageTransition}
-                className={className}
-            />
-        </AnimatePresence>
+        <img
+            key={feature.id}
+            src={feature.image}
+            alt={feature.title}
+            className={className}
+        />
     );
 };
 
@@ -109,81 +65,28 @@ const DesktopImage = ({ feature, className = "" }) => {
     );
 };
 
-/* =========================================================
-   FEATURES SECTION
-========================================================= */
-
 const FeaturesSection = () => {
-    /* =====================================================
-       DESKTOP ACTIVE FEATURE
-    ===================================================== */
-
     const [activeIndex, setActiveIndex] = useState(0);
-
-    /* =====================================================
-       MOBILE TOP
-
-       Default:
-       Stock Transfer selected
-    ===================================================== */
-
-    const [topActiveIndex, setTopActiveIndex] = useState(0);
-
-    /* =====================================================
-       MOBILE BOTTOM
-
-       Default:
-       Scan Barcodes selected
-    ===================================================== */
-
-    const [bottomActiveIndex, setBottomActiveIndex] = useState(2);
-
-    /* =====================================================
-       DESKTOP SELECT
-    ===================================================== */
+    const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
 
     const handleDesktopSelect = (index) => {
         setActiveIndex(index);
     };
 
-    /* =====================================================
-       MOBILE TOP SELECT
-
-       Only TOP section changes
-    ===================================================== */
-
-    const handleTopSelect = (index) => {
-        setTopActiveIndex(index);
-    };
-
-    /* =====================================================
-       MOBILE BOTTOM SELECT
-
-       Only BOTTOM section changes
-    ===================================================== */
-
-    const handleBottomSelect = (index) => {
-        setBottomActiveIndex(index);
+    const handleMobileSelect = (index) => {
+        setMobileActiveIndex(index);
     };
 
     return (
-        <section id="features" className="relative w-full overflow-hidden bg-white py-8">
-            {/* =====================================================
-                BACKGROUND ACCENTS
-            ===================================================== */}
-
+        <section
+            id="features"
+            className="relative w-full overflow-hidden bg-white py-12"
+        >
             <div className="absolute left-1/3 top-0 h-[400px] w-[400px] rounded-full bg-blue-200/40 blur-3xl" />
 
             <div className="absolute bottom-0 right-0 h-[350px] w-[350px] rounded-full bg-sky-300/30 blur-3xl" />
 
-            {/* =====================================================
-                MAIN CONTAINER
-            ===================================================== */}
-
             <div className="relative z-10 mx-auto max-w-7xl px-3 sm:px-6 md:px-10">
-                {/* =================================================
-                    SECTION HEADING
-                ================================================= */}
 
                 <div className="mb-6 max-w-2xl text-left">
                     <span className="mb-3 inline-block text-sm font-bold uppercase tracking-widest text-sky-600">
@@ -200,66 +103,55 @@ const FeaturesSection = () => {
                     </p>
                 </div>
 
-                {/* =================================================
-                    CONTENT
-                ================================================= */}
-
                 <div className="flex flex-col items-start gap-4 md:flex-row md:gap-16">
-                    {/* =================================================
-                        MOBILE VIEW
-                    ================================================= */}
 
-                    <div className="flex w-full flex-col gap-5 md:hidden">
-                        {/* =================================================
-                            TOP FEATURE CARDS
-                        ================================================= */}
+                    {/* MOBILE */}
+
+                    <div className="flex w-full flex-col gap-4 md:hidden">
 
                         <div className="grid grid-cols-2 gap-3">
                             {FEATURES.slice(0, 2).map((feature, index) => {
                                 const Icon = feature.icon;
-                                const isActive = index === topActiveIndex;
+                                const isActive = index === mobileActiveIndex;
 
                                 return (
                                     <button
                                         key={feature.id}
                                         type="button"
-                                        onClick={() => handleTopSelect(index)}
-                                        className={`group relative flex min-h-[125px] cursor-pointer flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl border bg-white p-3 text-center transition-all duration-300 ease-out active:scale-[0.97] ${isActive ? "shadow-lg" : "border-slate-200 shadow-sm hover:-translate-y-1 hover:shadow-lg"}`}
+                                        onClick={() => handleMobileSelect(index)}
+                                        className="group relative min-h-[125px] w-full cursor-pointer overflow-hidden rounded-2xl border bg-white p-3 text-center transition-all duration-300 active:scale-[0.97]"
                                         style={{
                                             borderColor: isActive
                                                 ? feature.color
-                                                : undefined,
+                                                : "#e2e8f0",
+                                            boxShadow: isActive
+                                                ? `0 8px 20px -10px rgba(0,0,0,0.35)`
+                                                : "0 2px 8px rgba(0,0,0,0.04)",
                                         }}
                                     >
-                                        {/* TOP ACTIVE LINE */}
-
                                         <div
-                                            className="absolute left-0 top-0 h-1 w-full transition-opacity duration-300"
+                                            className="absolute left-0 top-0 h-1 w-full"
                                             style={{
                                                 backgroundColor: feature.color,
                                                 opacity: isActive ? 1 : 0,
                                             }}
                                         />
 
-                                        {/* CLICK DOT */}
-
                                         <div
-                                            className="absolute right-3 top-3 h-2 w-2 rounded-full transition-transform duration-300 group-hover:scale-125"
+                                            className="absolute right-3 top-3 h-2 w-2 rounded-full"
                                             style={{
                                                 backgroundColor: feature.color,
                                             }}
                                         />
 
-                                        {/* ICON */}
-
                                         <div
-                                            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110"
+                                            className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl"
                                             style={{
                                                 backgroundColor: feature.colorSoft,
                                             }}
                                         >
                                             <Icon
-                                                size={20}
+                                                size={19}
                                                 strokeWidth={2}
                                                 style={{
                                                     color: feature.color,
@@ -267,10 +159,8 @@ const FeaturesSection = () => {
                                             />
                                         </div>
 
-                                        {/* TITLE */}
-
                                         <h3
-                                            className="block w-full text-[11px] font-bold leading-tight"
+                                            className="mt-2 text-[11px] font-bold leading-tight"
                                             style={{
                                                 color: isActive
                                                     ? feature.color
@@ -280,84 +170,71 @@ const FeaturesSection = () => {
                                             {feature.title}
                                         </h3>
 
-                                        {/* CLICK TO EXPLORE */}
-
                                         <span
-                                            className="flex items-center gap-1 text-[9px] font-semibold opacity-80"
+                                            className="mt-1 flex items-center justify-center gap-1 text-[9px] font-semibold opacity-80"
                                             style={{
                                                 color: feature.color,
                                             }}
                                         >
                                             Click to explore
-                                            <ArrowRight size={10} />
+                                            <ArrowRight size={9} />
                                         </span>
                                     </button>
                                 );
                             })}
                         </div>
 
-                        {/* =================================================
-                            TOP IMAGE
-                        ================================================= */}
-
-                        <div className="relative flex h-[450px] w-full items-center justify-center overflow-hidden">
+                        <div className="relative flex min-h-[310px] w-full items-center justify-center overflow-hidden sm:min-h-[380px]">
                             <SmoothImage
-                                feature={FEATURES[topActiveIndex]}
-                                className="absolute max-h-full max-w-full object-contain"
+                                feature={FEATURES[mobileActiveIndex]}
+                                className="block max-h-[280px] max-w-[92%] object-contain sm:max-h-[380px]"
                             />
                         </div>
-
-                        {/* =================================================
-                            BOTTOM FEATURE CARDS
-                        ================================================= */}
 
                         <div className="grid grid-cols-2 gap-3">
-                            {FEATURES.slice(2, 4).map((feature, localIndex) => {
-                                const index = localIndex + 2;
+                            {FEATURES.slice(2, 4).map((feature, sliceIndex) => {
+                                const index = sliceIndex + 2;
                                 const Icon = feature.icon;
-                                const isActive = index === bottomActiveIndex;
+                                const isActive = index === mobileActiveIndex;
 
                                 return (
                                     <button
                                         key={feature.id}
                                         type="button"
-                                        onClick={() => handleBottomSelect(index)}
-                                        className={`group relative flex min-h-[125px] cursor-pointer flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl border bg-white p-3 text-center transition-all duration-300 ease-out active:scale-[0.97] ${isActive ? "shadow-lg" : "border-slate-200 shadow-sm hover:-translate-y-1 hover:shadow-lg"}`}
+                                        onClick={() => handleMobileSelect(index)}
+                                        className="group relative min-h-[125px] w-full cursor-pointer overflow-hidden rounded-2xl border bg-white p-3 text-center transition-all duration-300 active:scale-[0.97]"
                                         style={{
                                             borderColor: isActive
                                                 ? feature.color
-                                                : undefined,
+                                                : "#e2e8f0",
+                                            boxShadow: isActive
+                                                ? `0 8px 20px -10px rgba(0,0,0,0.35)`
+                                                : "0 2px 8px rgba(0,0,0,0.04)",
                                         }}
                                     >
-                                        {/* TOP ACTIVE LINE */}
-
                                         <div
-                                            className="absolute left-0 top-0 h-1 w-full transition-opacity duration-300"
+                                            className="absolute left-0 top-0 h-1 w-full"
                                             style={{
                                                 backgroundColor: feature.color,
                                                 opacity: isActive ? 1 : 0,
                                             }}
                                         />
 
-                                        {/* CLICK DOT */}
-
                                         <div
-                                            className="absolute right-3 top-3 h-2 w-2 rounded-full transition-transform duration-300 group-hover:scale-125"
+                                            className="absolute right-3 top-3 h-2 w-2 rounded-full"
                                             style={{
                                                 backgroundColor: feature.color,
                                             }}
                                         />
 
-                                        {/* ICON */}
-
                                         <div
-                                            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110"
+                                            className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl"
                                             style={{
                                                 backgroundColor: feature.colorSoft,
                                             }}
                                         >
                                             <Icon
-                                                size={20}
+                                                size={19}
                                                 strokeWidth={2}
                                                 style={{
                                                     color: feature.color,
@@ -365,10 +242,8 @@ const FeaturesSection = () => {
                                             />
                                         </div>
 
-                                        {/* TITLE */}
-
                                         <h3
-                                            className="block w-full text-[11px] font-bold leading-tight"
+                                            className="mt-2 text-[11px] font-bold leading-tight"
                                             style={{
                                                 color: isActive
                                                     ? feature.color
@@ -378,42 +253,24 @@ const FeaturesSection = () => {
                                             {feature.title}
                                         </h3>
 
-                                        {/* CLICK TO EXPLORE */}
-
                                         <span
-                                            className="flex items-center gap-1 text-[9px] font-semibold opacity-80"
+                                            className="mt-1 flex items-center justify-center gap-1 text-[9px] font-semibold opacity-80"
                                             style={{
                                                 color: feature.color,
                                             }}
                                         >
                                             Click to explore
-                                            <ArrowRight size={10} />
+                                            <ArrowRight size={9} />
                                         </span>
                                     </button>
                                 );
                             })}
-                        </div>
-
-                        {/* =================================================
-                            BOTTOM IMAGE
-                        ================================================= */}
-
-                        <div className="relative flex h-[450px] w-full items-center justify-center overflow-hidden">
-                            <SmoothImage
-                                feature={FEATURES[bottomActiveIndex]}
-                                className="absolute max-h-full max-w-full object-contain"
-                            />
                         </div>
                     </div>
 
-                    {/* =================================================
-                        DESKTOP VIEW
-                    ================================================= */}
+                    {/* DESKTOP */}
 
                     <div className="hidden w-full items-start gap-16 md:flex">
-                        {/* =================================================
-                            DESKTOP FEATURE CARDS
-                        ================================================= */}
 
                         <div className="flex w-1/2 flex-col gap-4">
                             {FEATURES.map((feature, index) => {
@@ -425,27 +282,25 @@ const FeaturesSection = () => {
                                         key={feature.id}
                                         type="button"
                                         onClick={() => handleDesktopSelect(index)}
-                                        className={`group relative w-full cursor-pointer overflow-hidden rounded-2xl border bg-white text-left transition-all duration-300 ease-out active:scale-[0.99] ${isActive ? "scale-[1.02] shadow-xl" : "border-slate-200 shadow-sm hover:-translate-y-1 hover:scale-[1.01] hover:shadow-lg"}`}
+                                        className={`group relative w-full cursor-pointer overflow-hidden rounded-2xl border bg-white text-left transition-all duration-300 ease-out active:scale-[0.99] ${isActive
+                                            ? "scale-[1.02] shadow-xl"
+                                            : "border-slate-200 shadow-sm hover:-translate-y-1 hover:scale-[1.01] hover:shadow-lg"
+                                            }`}
                                         style={{
                                             borderColor: isActive
                                                 ? feature.color
                                                 : undefined,
                                         }}
                                     >
-                                        {/* ACTIVE LEFT LINE */}
-
                                         <div
-                                            className="absolute left-0 top-0 h-full w-1 transition-opacity duration-300"
+                                            className="absolute left-0 top-0 h-full w-1"
                                             style={{
                                                 backgroundColor: feature.color,
                                                 opacity: isActive ? 1 : 0,
                                             }}
                                         />
 
-                                        {/* CARD CONTENT */}
-
                                         <div className="flex items-center gap-4 px-6 py-5">
-                                            {/* ICON */}
 
                                             <div
                                                 className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110"
@@ -462,8 +317,6 @@ const FeaturesSection = () => {
                                                     }}
                                                 />
                                             </div>
-
-                                            {/* TITLE + HINT */}
 
                                             <div className="min-w-0 flex-1">
                                                 <h3
@@ -489,8 +342,6 @@ const FeaturesSection = () => {
                                                 </span>
                                             </div>
 
-                                            {/* ARROW BUTTON */}
-
                                             <div
                                                 className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-all duration-300 group-hover:translate-x-1"
                                                 style={{
@@ -507,10 +358,6 @@ const FeaturesSection = () => {
                             })}
                         </div>
 
-                        {/* =================================================
-                            DESKTOP IMAGE
-                        ================================================= */}
-
                         <div className="sticky top-16 -mt-20 flex w-1/2 items-center justify-center">
                             <DesktopImage
                                 feature={FEATURES[activeIndex]}
@@ -525,3 +372,4 @@ const FeaturesSection = () => {
 };
 
 export default FeaturesSection;
+
