@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "sellar-88ced"
+  },
+  "targets": {
+    "sellar-88ced": {
+      "hosting": {
+        "admin": [
+          "sellar-d033b"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
