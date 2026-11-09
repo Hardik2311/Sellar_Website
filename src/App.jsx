@@ -7,6 +7,7 @@ import Footer from './Component/Footer/Footer.jsx';
 import Testimonials from './Component/Testimonials/Testimonials';
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { logPageView } from "./Lib/Firebase.js";
 import FeaturesSection from './Component/Features/Features';
 import ReportsSection from './Component/Reports/Reports';
 import BillFormatsSection from './Component/BillSection/BillSection';
@@ -14,10 +15,16 @@ import WhoCanUseSection from './Component/WhoCanUseSellar/WhoCanUseSellar';
 import WebAppSection from './Component/WebAppSection/WebAppSection';
 import ProductsSection from './Component/OurProducts/OurProducts';
 import FAQ from './Component/FAQ/FAQ';
+import FestiveFloatingBanner from './Component/FestiveOffer/FestiveFloatingBanner';
+import ContactPopup from './Component/ContactPopup/ContactPopup';
 import { FaWhatsapp } from "react-icons/fa6";
 
 const App = () => {
   const location = useLocation();
+
+  useEffect(() => {
+    logPageView(location.pathname);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (location.state?.scrollTo) {
@@ -54,6 +61,12 @@ const App = () => {
       <div id="contact"><Contact /></div>
       <Footer />
 
+
+      {/* Floating festive offer banner */}
+      <FestiveFloatingBanner />
+
+      {/* Timed contact form popup */}
+      <ContactPopup />
 
       {/* Floating WhatsApp Button */}
       <a

@@ -2,11 +2,13 @@ import React, { useEffect } from "react";
 import Navbar from "../Component/Navbar/Navbar";
 import Footer from "../Component/Footer/Footer";
 import { Link } from "react-router-dom";
+import { logPageView } from "../Lib/Firebase.js";
 
 const Terms = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    logPageView("/terms");
   }, []);
 
   return (
