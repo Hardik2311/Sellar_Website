@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import { Sparkles } from 'lucide-react';
 import {
     BASIC_FEATURES,
     CATALOGUE_FEATURES,
     PRO_FEATURES
 } from './PricingFeature';
+
+const FESTIVE_CLAIM_URL =
+    'https://wa.me/9818815838?text=Hi%2C%20I%20would%20like%20to%20claim%20the%20Sellar%20festive%20offer.';
 
 const Pricing = () => {
     const [activeService, setActiveService] = useState('pos');
@@ -56,15 +60,18 @@ const Pricing = () => {
             basic: '999',
             pro: '2,999',
             originalBasic: '1,999',
-            originalPro: '3,999'
+            originalPro: '3,999',
+            festivePro: '999'
         },
         catalogue: {
             pro: '4,999',
-            originalPro: '7,999'
+            originalPro: '7,999',
+            festivePro: '999'
         },
         both: {
             pro: '7,999',
-            originalPro: '14,999'
+            originalPro: '14,999',
+            festivePro: '999'
         }
     };
 
@@ -132,11 +139,11 @@ const Pricing = () => {
                     </p>
 
                     {/* Service Tabs */}
-                    <div className="mt-7 inline-flex max-w-full overflow-x-auto p-1.5 rounded-2xl bg-white/80 backdrop-blur-xl border border-white shadow-[0_12px_35px_rgba(76,29,149,0.10)]">
+                    <div className="mt-7 grid w-full grid-cols-3 sm:inline-flex sm:w-auto max-w-full p-1.5 rounded-2xl bg-white/80 backdrop-blur-xl border border-white shadow-[0_12px_35px_rgba(76,29,149,0.10)]">
 
                         <button
                             onClick={() => setActiveService('pos')}
-                            className={`whitespace-nowrap px-4 md:px-6 py-2.5 rounded-xl text-xs md:text-sm font-bold transition-all duration-300 ${
+                            className={`sm:whitespace-nowrap px-1.5 sm:px-4 md:px-6 py-2.5 rounded-xl text-xs leading-tight md:text-sm font-bold transition-all duration-300 ${
                                 activeService === 'pos'
                                     ? theme.pos.button
                                     : `text-slate-500 ${theme.pos.hover}`
@@ -147,7 +154,7 @@ const Pricing = () => {
 
                         <button
                             onClick={() => setActiveService('catalogue')}
-                            className={`whitespace-nowrap px-4 md:px-6 py-2.5 rounded-xl text-xs md:text-sm font-bold transition-all duration-300 ${
+                            className={`sm:whitespace-nowrap px-1.5 sm:px-4 md:px-6 py-2.5 rounded-xl text-xs leading-tight md:text-sm font-bold transition-all duration-300 ${
                                 activeService === 'catalogue'
                                     ? theme.catalogue.button
                                     : `text-slate-500 ${theme.catalogue.hover}`
@@ -158,7 +165,7 @@ const Pricing = () => {
 
                         <button
                             onClick={() => setActiveService('both')}
-                            className={`whitespace-nowrap px-4 md:px-6 py-2.5 rounded-xl text-xs md:text-sm font-bold transition-all duration-300 ${
+                            className={`sm:whitespace-nowrap px-1.5 sm:px-4 md:px-6 py-2.5 rounded-xl text-xs leading-tight md:text-sm font-bold transition-all duration-300 ${
                                 activeService === 'both'
                                     ? theme.both.button
                                     : `text-slate-500 ${theme.both.hover}`
@@ -225,11 +232,19 @@ const Pricing = () => {
 
                                 <div className="flex flex-col">
 
-                                    <span className="block text-xs md:text-lg font-bold text-slate-400 line-through">
+                                    <span className="block text-[9px] md:text-[11px] font-semibold text-slate-500 whitespace-nowrap">
+                                        MRP
+                                    </span>
+
+                                    <span className="block mb-2 text-xs md:text-lg font-bold text-slate-400 line-through">
                                         ₹{pricing.pos.originalBasic}
                                     </span>
 
-                                    <span className="block text-xl md:text-4xl font-black text-[#00171f] leading-none">
+                                    <span className="block mb-1 text-[9px] md:text-xs font-bold text-slate-700 whitespace-nowrap">
+                                        Offer Price
+                                    </span>
+
+                                    <span className="block text-xl md:text-4xl font-black text-[#FF14A0] leading-none">
                                         ₹{pricing.pos.basic}
                                     </span>
 
@@ -261,12 +276,35 @@ const Pricing = () => {
 
                             <div className="flex flex-col">
 
-                                <span className="block text-xs md:text-lg font-bold text-slate-400 line-through">
-                                    ₹{pricing[activeService].originalPro}
+                                {/* Original price, regular price, then festive price */}
+                                <div className="flex flex-col lg:flex-row lg:justify-center lg:items-end gap-1 lg:gap-4 mb-2">
+
+                                    <div>
+                                        <span className="block text-[9px] md:text-[11px] font-semibold text-slate-500 whitespace-nowrap">
+                                            MRP
+                                        </span>
+                                        <span className="block text-[11px] md:text-sm lg:text-base font-bold text-slate-400 line-through">
+                                            ₹{pricing[activeService].originalPro}
+                                        </span>
+                                    </div>
+
+                                    <div>
+                                        <span className="block text-[9px] md:text-[11px] font-semibold text-slate-500 whitespace-nowrap">
+                                            Selling Price
+                                        </span>
+                                        <span className="block text-xs md:text-lg font-bold text-slate-500 line-through">
+                                            ₹{pricing[activeService].pro}
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                                <span className="block mb-1 text-[9px] md:text-xs font-bold text-slate-700 whitespace-nowrap">
+                                    Offer Price
                                 </span>
 
-                                <span className="block text-xl md:text-4xl font-black text-[#00171f] leading-none">
-                                    ₹{pricing[activeService].pro}
+                                <span className="block text-xl md:text-4xl font-black text-[#FF14A0] leading-none">
+                                    ₹{pricing[activeService].festivePro}
                                 </span>
 
                             </div>
@@ -276,6 +314,51 @@ const Pricing = () => {
                             </p>
 
                         </div>
+
+                    </div>
+
+
+                    {/* Festive Offer Strip */}
+                    {/* Colours sampled from the Sellar logo: black with a red-to-pink gradient */}
+                    <div className="relative overflow-hidden bg-[#0a0a0a] px-4 md:px-10 py-3.5 md:py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+
+                        <div
+                            aria-hidden="true"
+                            className="pointer-events-none absolute inset-0"
+                            style={{
+                                background:
+                                    'radial-gradient(ellipse 45% 160% at 4% 130%, rgba(255,64,33,0.30), transparent 70%), radial-gradient(ellipse 40% 170% at 100% -40%, rgba(255,0,214,0.24), transparent 70%)',
+                            }}
+                        />
+
+                        <div className="relative flex items-center gap-3 min-w-0">
+
+                            <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-tr from-[#FF4021] to-[#FF00D6] text-white">
+                                <Sparkles size={18} strokeWidth={2} aria-hidden="true" />
+                            </span>
+
+                            <div className="min-w-0">
+                                <p className="text-sm md:text-base font-extrabold text-white leading-tight">
+                                    Festive Offer:{' '}
+                                    <span className="text-[#FF14A0]">
+                                        up to 80% off
+                                    </span>
+                                </p>
+                                <p className="mt-0.5 text-xs md:text-sm text-neutral-300">
+                                    Valid this festive season
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <a
+                            href={FESTIVE_CLAIM_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="relative inline-flex items-center justify-center rounded-lg bg-gradient-to-tr from-[#FF4021] to-[#FF00D6] px-5 py-2.5 text-sm font-bold text-[#0a0a0a] whitespace-nowrap transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF14A0] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a]"
+                        >
+                            Claim Offer
+                        </a>
 
                     </div>
 
