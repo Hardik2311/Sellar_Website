@@ -22,7 +22,7 @@ const FEATURES = [
         color: "#db2777",
         colorSoft: "#fce7f3",
         icon: Barcode,
-        image: "/Generate-Barcodes.png",
+        image: "/Barcode.png",
     },
     {
         id: "scan-barcode",
