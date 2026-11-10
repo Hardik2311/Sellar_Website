@@ -240,7 +240,6 @@ const SliderControls = ({
 
 export default function Testimonials() {
 
-    const [mobileCurrent, setMobileCurrent] = useState(0);
     const [tabletCurrent, setTabletCurrent] = useState(0);
 
     const TABLET_VISIBLE = 2;

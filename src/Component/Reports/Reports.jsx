@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import {
     TrendingUp,
     BarChart3,
@@ -17,7 +16,7 @@ const REPORTS = [
             "See your business's real profit at a glance sales, expenses and margins, all in one report.",
         color: "#C9A227",
         icon: TrendingUp,
-        image: "/P&L Report.png",
+        image: "/Profit-Report.png",
     },
     {
         id: "sales-report",
@@ -27,7 +26,7 @@ const REPORTS = [
             "Track sales by day, week or month and see which item or customer is driving the most business.",
         color: "#3E8E7E",
         icon: BarChart3,
-        image: "/Sales Report.png",
+        image: "/Sales-Report.png",
     },
     {
         id: "party-ledger",
@@ -37,7 +36,7 @@ const REPORTS = [
             "A complete record for every customer and supplier what's owed, what's paid, all in one place.",
         color: "#B5651D",
         icon: BookUser,
-        image: "/Party Ledger.png",
+        image: "/Party-Ledger.png",
     },
     {
         id: "purchase-report",
@@ -47,7 +46,7 @@ const REPORTS = [
             "Keep a record of every purchase what you ordered from which supplier, and how much.",
         color: "#5B6E8C",
         icon: ShoppingBag,
-        image: "/Purchase Report.png",
+        image: "/Purchase-Report.png",
     },
 ];
 
