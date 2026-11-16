@@ -95,7 +95,7 @@ const PRODUCTS = [
     color: "#7c3aed",
     colorSoft: "#ede9fe",
     icon: Calculator,
-    image: "/CALCI.png",
+    image: "/Calci.png",
     features: [
       {
         icon: Calculator,
